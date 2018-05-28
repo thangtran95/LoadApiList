@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Home</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<style>
+		article{
+			padding: 100px 0;
+		}
+		h1{
+			margin-bottom: 30px;
+		}
+		.ed-table{
+			margin: 40px 0;	
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<article id="appVue" data-api-list-user="http://192.168.1.56/api/user/getList">
+			<div class="container">
+				<div class="text-center">
+					<h1>Load data from api</h1>
+				</div>
+				<div class="form-search">
+					<form>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Enter user..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button @click.stop.prevent="testbtn" class="btn btn-outline-secondary" type="button">Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="ed-table">
+					<table class="table table-hover table-dark">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Name</th>
+								<th scope="col">Mail</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<template v-if="list.loading">
+								<h2>Loading</h2>
+							</template>
+							<template v-else>
+								<template v-if="list.data.length">
+									<tr v-for="(item, index) in list.data">
+										<td>
+											{{ (list.pagination.current_page - 1) * 
+											list.pagination.per_page + (index + 1)}}
+										</td>
+										<td>{{ item.name }}</td>
+										<td>{{ item.email }}</td>
+										<td>{{ item.phone }}</td>
+										<td>{{ item.status }}</td>
+									</tr>
+								</template>
+								<template v-else>
+									<tr>Không có dữ liệu</tr>
+								</template>
+							</template>
+							
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</article>
+	</section>
+	
+	<script  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+	<script type="text/javascript" src="js/testvue.js"></script>
+</body>
+</html>
